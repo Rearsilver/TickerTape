@@ -1,0 +1,78 @@
+:root {
+  --height: 150px; /* Adjust ticker height as needed */
+  --speed: 30s; /* Adjust scroll speed (animation duration) */
+  --loop-duration: 60s; /* Adjust loop duration (overlay display time) */
+  --fadeout-start: calc(100% - 10s); /* Fadeout starts 10 seconds before loop end */
+  --fadeout-duration: 10s; /* Fadeout animation duration */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.ticker-container {
+  display: flex;
+  width: 100vw;
+  height: var(--height);
+  position: absolute; /* Adjust positioning for your stream overlay software */
+  top: 0; /* Adjust positioning for your stream overlay software */
+  background-color: white; /* White background */
+}
+
+.breaking-news {
+  width: 20%;
+  height: 100%; /* Full height of the container */
+  background-color: #df2020;
+  color: white;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ticker-tape {
+  display: flex;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 80%;
+  overflow: hidden;
+  height: var(--height);
+}
+
+.ticker-tape .ticker {
+  height: var(--height);
+  line-height: var(--height);
+  white-space: nowrap;
+  padding-right: 100%;
+  animation: ticker var(--speed) linear infinite;
+}
+
+.ticker-tape .ticker__item {
+  display: inline-block;
+  padding: 0 2rem;
+  font-size: 8rem; /* Adjust font size as needed */
+  font-weight: 900;
+  line-height: 8rem; /* Replace with actual font size */
+  letter-spacing: 0.5rem;
+  color: black;
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+    visibility: visible;
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Additional style for hiding the overlay after loop duration */
+.ticker-container {
+  animation: 
+    maintain-opacity calc(var(--loop-duration) - var(--fadeout-duration) - 0.1s) ease-in-out forwards,
+    hide-overlay var(--fadeout-duration) ease-in-out forwards;
+  background-color: white; /* Example of another property separated by semicolon */
+}
